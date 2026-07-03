@@ -1,0 +1,67 @@
+<% if (accounts.length > 0) { %>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+      <% accounts.forEach(account => { %>
+        <div class="mb-4">
+          <div class="bg-gray-900 relative">
+            
+            <div class="card-header relative">
+              <% 
+              // Determine the image URL based on the account's skin
+              var imageURL = 'https://raw.communitydragon.org/14.9/plugins/rcp-be-lol-game-data/global/default/v1/' + account.highestRarityTilePath0;
+              var uniqueId = 'show-skins-toggle-' + account.id; // Generate a unique ID
+              %>
+              <img src="<%= imageURL %>" class="w-full h-64 object-cover" alt="Buy <%= account.skinNames %>">
+
+
+              <input type="checkbox" id="<%= uniqueId %>" class="hide-checkbox">
+              <label for="<%= uniqueId %>" class="absolute top-1 right-1 z-10 bg-gray-800 text-white px-2 py-1 rounded-lg cursor-pointer label-top-right ">SHOW SKINS</label>
+              <div class="absolute top-1 left-1 z-10 bg-gray-900 text-white px-2 py-1 rounded-lg skin-names ">
+                <% account.skinNames.forEach(skinName => { %>
+                  <div>
+                    <% if (account.highestRarityName.includes(skinName)) { %>
+                      <b><%= skinName %></b>
+                    <% } else { %>
+                      <%= skinName %>
+                    <% } %>
+                  </div>
+                <% }); %>
+              </div>
+            </div>
+            <div class="card bg-gray-900 p-4">
+                <h5 class="text-xl font-bold text-white mb-4 text-center">
+                    <%= (account.blueessence >= 10000) ? (Math.floor(account.blueessence / 10000) * 10000 + '+') : '<10,000' %> Blue Essence <%= account.region %>
+                </h5>
+                <p class="flex items-center text-white mb-2">
+                    <i class="fas fa-level-up-alt mr-2 icon"></i>
+                    <span class="font-semibold">Level: <span class="font-normal"><%= account.level %> </span></span>
+                </p>
+                <p class="flex items-center text-white mb-2">
+                    <i class="fas fa-globe mr-2 icon"></i>
+                    <span class="font-semibold">Region: <span class="font-normal"><%= account.region %> </span></span>
+                </p>
+                <p class="flex items-center text-white mb-2">
+                    <img src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-store/global/default/storefront/addon/public/img/sprite-source/lcu-be-svg.svg" alt="Blue essence" class="icon">
+                    <span class="font-semibold">Blue Essence: <span class="font-normal"><%= (account.blueessence >= 10000) ? (Math.floor(account.blueessence / 10000) * 10000 + '+') : '<10,000' %></span> </span>
+                </p>
+                <p class="flex items-center text-white">
+                    <i class="fas fa-shield-alt mr-2 icon"></i>
+                    <span class="font-semibold">Lifetime Warranty</span>
+                </p>
+            </div>
+            
+          </div>
+          <div class="bg-gray-900 py-3 px-4 flex justify-between items-end">
+            <p class="text-2xl font-semibold text-white dark:text-white">Price: <span class="text-2xl font-bold text-white dark:text-white"><%= account.price %>€</span></p>
+            <button class="bg-green-600 hover:bg-green-700 text-white px-2 py-2 rounded-lg transition-colors duration-300 ease-in-out addToCartButton" data-item-id="<%= account.id %>">Add to Cart</button>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <div class="md:w-full mt-3">
+      <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline">No accounts found in the current filters.</span>
+      </div>
+    </div>
+  <% } %>
+  

@@ -1,0 +1,101 @@
+<%- include('partials/MasterHeader') %>
+<title>Your Cart - MisterySmurfs</title>
+</div>
+<div class="col-md-10">
+    <div class="row" id ="cartList">
+
+    </div>
+</div>
+
+<script nonce="<%= nonce %>">
+    $(document).ready(function() {
+        fetchCartData();
+        $("body").on("click", ".delete-button", function() {
+            var itemId = $(this).data("item-id");
+            var data = { itemId: itemId };
+    
+            $.ajax({
+                type: "DELETE",
+                url: "Cart/remove-from-cart",
+                data: data,
+                success: function(response) {
+                    toastr.success("Account successfully removed from the cart", "Success", {
+                        timeOut: 3000,
+                        progressBar: true,
+                        positionClass: "toast-top-center",
+                    });
+                    fetchCartData();
+                },
+                statusCode: {
+                404: function() {
+                    toastr.warning("Account not found in the cart", "Warning", {
+                        timeOut: 3000,
+                        progressBar: true,
+                        positionClass: "toast-top-center",
+                        });
+                    fetchCartData();
+                    }
+                },
+                error: function(error) {
+                    console.error("Error removing item from the cart: " + error);
+                }
+            });
+        });
+    
+        function fetchCartData() {
+            $.ajax({
+                type: 'GET',
+                url: '/Cart/get-cart',
+                success: function (html) {
+                    $("#cartList").html(html);
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        $("body").on("click", ".applyCoupon", function() {
+            const couponCode = $("#couponCode").val(); // Use .val() to get the input field value
+            var data = { couponCode: couponCode };
+            try {
+                $.ajax({
+                    type: "POST",
+                    url: "/Cart/check-coupon",
+                    data: data, // Pass the 'data' object containing the coupon code
+                    success: function(couponData) {
+                        // Update the price on your UI using the returned coupon details
+                        updatePrice(couponData.percentOff, couponData.couponName);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        $("#couponError").text(xhr.responseText);
+                    }
+                });
+            } catch (error) {
+                console.error("Error applying coupon:", error);
+            }
+        });
+
+
+        function updatePrice(percentOff, couponName) {
+            const currentTotal = parseFloat($("#totalPrice").text()); 
+            const discountedAmount = currentTotal * (percentOff / 100);
+            const discountedPrice = currentTotal - discountedAmount;
+
+            const formattedDiscountedAmount = discountedAmount.toFixed(2);
+            const formattedDiscountedPrice = discountedPrice.toFixed(2);
+
+            $("#discountedAmount").text("-" + formattedDiscountedAmount + "€");
+            $("#newTotal").text(formattedDiscountedPrice + "€");
+            $("#percentageDiscount").text('Discount (' + percentOff + '%):');
+
+            $("#couponError").text('');
+            $("#couponCode").prop("disabled", true);
+            $("#applyCoupon").prop("disabled", true);
+            $("#appliedCoupon").val(couponName);
+
+            $("#discountedSection").removeClass("hidden").addClass("d-block");
+        }
+    });
+</script>
+<%- include('partials/MasterFooter') %>

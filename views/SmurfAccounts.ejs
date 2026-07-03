@@ -1,0 +1,227 @@
+<%- include('partials/MasterHeader') %>
+<title>MisterySmurfs - Buy LoL Unranked Smurf Accounts</title>
+</div>
+<link href="https://cdn.jsdelivr.net/npm/ion-rangeslider@2.3.1/css/ion.rangeSlider.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/ion-rangeslider@2.3.1/js/ion.rangeSlider.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<div class="col-span-10">
+    <div>
+        <div class="col-span-12">
+            <fieldset class="bg-gray-900 p-2 mb-4">
+                <form id="filterForm" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="col-span-1 md:col-span-1">
+                            <div><label for="champion" class="form-label font-semibold">Filter by Champion:</label></div>
+                            <div>
+                                <select name="champion" id="champion" class="form-select js-example-basic-multipl w-3/5" data-placeholder="Select a champion">
+                                    <option value=""></option>
+                                    <% championList.forEach(championName => { %>
+                                        <option value="<%= championName.name %>"><%= championName.name %></option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-span-1 md:col-span-1">
+                            <div><label for="skin" class="form-label font-semibold">Filter by Skin:</label></div>
+                            <div>
+                                <select name="skin" id="skin" class="form-select js-example-basic-multipl w-3/5" data-placeholder="Select a skin">
+                                    <option value=""></option>
+                                    <% skinList.forEach(skinName => { %>
+                                        <option value="<%= skinName %>"><%= skinName %></option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-span-1 md:col-span-1"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="col-span-1 md:col-span-1">
+                            <label class="py-4 font-semibold">Filter by Region:</label>
+                            <div class=" flex flex-wrap">
+                                <input type="radio" class="form-check-input" name="region" value="EUW" id="euw" autocomplete="off">
+                                <label for="euw" class="bg-gray-600 hover:bg-indigo-700 text-white font-bold rounded btnregion mr-1">EUW</label>
+
+                                <input type="radio" class="form-check-input" name="region" value="EUNE" id="eune" autocomplete="off">
+                                <label for="eune" class="bg-gray-600 hover:bg-indigo-700 text-white font-bold rounded btnregion mr-1">EUNE</label>
+
+                                <input type="radio" class="form-check-input" name="region" value="NA" id="na" autocomplete="off">
+                                <label for="na" class="bg-gray-600 hover:bg-indigo-700 text-white font-bold rounded btnregion mr-1">NA</label>
+
+                                <input type="radio" class="form-check-input" name="region" value="BR" id="br" autocomplete="off">
+                                <label for="br" class="bg-gray-600 hover:bg-indigo-700 text-white font-bold rounded btnregion mr-1">BR</label>
+
+                                <input type="radio" class="form-check-input" name="region" value="TR" id="tr" autocomplete="off">
+                                <label for="tr" class="bg-gray-600 hover:bg-indigo-700 text-white font-bold rounded btnregion mr-1">TR</label>
+
+                                <input type="radio" class="form-check-input" name="region" value="LAN" id="lan" autocomplete="off">
+                                <label for="lan" class="bg-gray-600 hover:bg-indigo-700 text-white font-bold rounded btnregion mr-1">LAN</label>
+
+                                <input type="radio" class="form-check-input" name="region" value="LAS" id="las" autocomplete="off">
+                                <label for="las" class="bg-gray-600 hover:bg-indigo-700 text-white font-bold rounded btnregion mr-1">LAS</label>
+
+                                <input type="radio" class="form-check-input" name="region" value="RU" id="ru" autocomplete="off">
+                                <label for="ru" class="bg-gray-600 hover:bg-indigo-700 text-white font-bold rounded btnregion mr-1">RU</label>
+
+                                <input type="radio" class="form-check-input" name="region" value="OCE" id="oce" autocomplete="off">
+                                <label for="oce" class="bg-gray-600 hover:bg-indigo-700 text-white font-bold rounded btnregion mr-1">OCE</label>
+                            </div>
+                        </div>
+                        <div class="col-span-1 md:col-span-1">
+                            <label for="blueEssenceRange"><span class="font-semibold">Filter by Blue Essence:</span></label>
+                            <input type="text" id="blueEssenceRange" name="blueEssenceRange" class="border border-gray-300 rounded-md p-2">
+                        </div>
+                        <div class="col-span-1 md:col-span-1 mt-auto ml-auto">
+                            <label for="sort" class="form-label font-semibold">Sort by Price:</label>
+                            <select name="sort" id="sort" class="text-black bg-white-700 hover:bg-white-800 focus:ring-4 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-white-800">
+                                <option value="asc">Lowest Price</option>
+                                <option value="desc">Highest Price</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">Apply</button>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+        
+    </div>
+</div>
+
+    <div class="row" id="accountsSection">
+        
+    </div>
+</div>
+<script nonce="<%= nonce %>">
+    $(document).ready(function () {
+        $("#blueEssenceRange").ionRangeSlider({
+            skin: "round",
+            type: "double",
+            min: 0,
+            max: 110000,
+            from: 0,
+            to: 110000,
+            step: 10000,
+            prettify: function (num) {
+                if (num >= 1000) return (num / 1000) + "K";
+                return num;
+            }
+        });
+        
+        $('.js-example-basic-multipl').select2({
+            allowClear: true,
+            multiple: true,
+        }).on('select2:unselecting', function() {
+            $(this).data('unselecting', true);
+        }).on('select2:opening', function(e) {
+            if ($(this).data('unselecting')) {
+                $(this).removeData('unselecting');
+                e.preventDefault();
+            }
+        });
+
+        $('#champion option[value=""]').remove();
+        $('#skin option[value=""]').remove();
+
+        function fetchAndLoadFilteredAccounts() {
+            var formData = $('#filterForm').serialize();
+            $.ajax({
+                type: 'GET',
+                url: '/smurfaccounts/filtered-accounts',
+                data: formData,
+                success: function (html) {
+                    $('#accountsSection').html(html);
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        fetchAndLoadFilteredAccounts();
+
+        $('#filterForm').submit(function (event) {
+            event.preventDefault(); 
+            fetchAndLoadFilteredAccounts();
+        });
+    });
+
+    // Attach a click event handler to elements with the "addToCartButton" class using event delegation
+    $("#accountsSection").on("click", ".addToCartButton", function() {
+        // Inside this function, $(this) refers to the clicked "Add to Cart" button
+        var itemId = $(this).data("item-id");
+        var data = { itemId: itemId };
+
+        // Send an AJAX POST request to the server
+        $.ajax({
+            type: "POST",
+            url: "Cart/add-to-cart", // Replace with the actual server endpoint
+            data: data,
+            success: function(response) {
+                // Handle the success response (e.g., show a success message)
+                toastr.success("Account added to the cart", "Success", {
+                    timeOut: 3000, // How long the notification will be displayed (in milliseconds)
+                    progressBar: true, // Show a progress bar
+                    positionClass: "toast-top-center", // Position of the notification
+                    // Add more options as needed
+                });
+            },
+            statusCode: {
+                400: function() {
+                    toastr.warning("Cart is full. Maximum of 8 items allowed", "Warning", {
+                        timeOut: 3000,
+                        progressBar: true,
+                        positionClass: "toast-top-center",
+                        // Add more options as needed
+                        });
+                    },
+                401: function() {
+                    toastr.error("Please login before adding accounts to the cart", "Error", {
+                        timeOut: 3000,
+                        progressBar: true,
+                        positionClass: "toast-top-center",
+                        // Add more options as needed
+                        });
+                    },
+                403: function() {
+                    toastr.error("Account is currently being bought or was bought by someone else", "Error", {
+                        timeOut: 3000,
+                        progressBar: true,
+                        positionClass: "toast-top-center",
+                        // Add more options as needed
+                        });
+                    },
+                404: function() {
+                    toastr.error("Account not found", "Error", {
+                        timeOut: 3000,
+                        progressBar: true,
+                        positionClass: "toast-top-center",
+                        // Add more options as needed
+                        });
+                    },
+                409: function() {
+                    toastr.warning("Account already in the cart", "Warning", {
+                        timeOut: 3000,
+                        progressBar: true,
+                        positionClass: "toast-top-center",
+                        // Add more options as needed
+                        });
+                    },
+                439: function() {
+                    toastr.warning("Too many request, wait one second", "Warning", {
+                        timeOut: 3000,
+                        progressBar: true,
+                        positionClass: "toast-top-center",
+                        // Add more options as needed
+                        });
+                    },
+                },
+            error: function(error) {
+                // Handle errors (e.g., display an error message)
+                console.error("Error adding item to the cart: " + error);
+            }
+        });
+    });
+</script>
+<%- include('partials/MasterFooter') %>
